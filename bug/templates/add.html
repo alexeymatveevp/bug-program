@@ -1,0 +1,99 @@
+{% load staticfiles %}
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<script src="{% static "bower_components/jquery/jquery.min.js" %}"></script>
+	<script src="{% static "bower_components/bootstrap/dist/js/bootstrap.min.js" %}"></script>
+	<script type="text/javascript" src="{% static "js/add.js" %}"></script>
+	<link rel="stylesheet" type="text/css" href="{% static "bower_components/bootstrap/dist/css/bootstrap.css" %}">
+	<link rel="stylesheet" type="text/css" href="{% static "js/style.css" %}">	
+</head>
+<body>
+	<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+		<div class="navbar-header">
+			<a class="navbar-brand" href="/">Bug app</a>
+		</div>
+		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			<ul class="nav navbar-nav">
+				<li><a href="/">List of employees</a></li>
+				<li class="active"><a href="add">Register new</a></li>
+			</ul>
+		</div>
+	</nav>
+
+	<div class="container" style="margin: 10px; width: 400px; margin: auto; margin-top: 80px;">
+		<div class="row">
+			<h2>New Registration</h2>
+		</div>
+		<form id="regestration_form" role="form">
+			<div class="form-group">
+				<label for="firstname">Name:</label>
+				<div>
+					<input name="name" type="text" class="form-control" id="firstname" placeholder="Name">
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="emailaddress">Email address:</label>
+				<div>
+					<input name="email" type="email" class="form-control" id="emailaddress" placeholder="Email">
+					<blockquote><small>Example: alex@t-systems.ru</small></blockquote>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="sex">
+					Sex:
+				</label>
+				<div>
+					<label class="radio">
+						<input name="sex" type="radio" name="sex" id="sex" value="male" checked>
+						Male
+					</label>
+					<label class="radio">
+						<input name="sex" type="radio" name="sex" id="sex" value="female">
+						Female
+					</label>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="position">Position:</label>
+				<div>
+					<select name="position" class="form-control">
+						<option value="">-- select position --</option>
+						{% for pos in positions %}
+						<option>{{ pos }}</option>
+						{% endfor %}
+					</select>
+				</div>
+			</div>
+
+
+			<div class="checkbox">
+				<div>
+				</div>
+				<div>
+					<label>
+						<input type="checkbox">Privacy permission</label>
+					</div>
+				</div>
+
+				<div>
+					<div>
+					</div>
+					<div>
+						<button id="register_btn" type="submit" class="btn btn-primary">Register</button>
+					</div>
+				</div>
+			</form>
+
+			<div id="progress_bar" class="progress progress-striped active" style="display: none;">
+				<div class="progress-bar"  role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+					<span class="sr-only">45% Complete</span>
+				</div>
+			</div>
+		</div>
+	</body>
+	</html>
+
