@@ -3,6 +3,7 @@ import os
 import shutil
 
 def main():
+	os.chdir('..')
 	for i in range(15):
 		instanceDir = './prod/inst'+str(i)
 		port = 8000+i
