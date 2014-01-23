@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from datetime import datetime
 from django.http import HttpResponse
 from django.template import RequestContext, loader
 from bug.models import *
@@ -25,8 +26,19 @@ def add(request):
         })
         return HttpResponse(template.render(context))
     elif (request.method == 'POST'):
-        print request['name'], request['birthDate'], request['email'], request['sex'], request['position']
-        person = Person(name=request['name'], birthDate=request['birthDate'], email=request['email'], sex=request['sex'], position=Position(position=request['position']))
+        print request.POST['name'], request.POST['email'], request.POST['sex'], request.POST['position']
+        birthDateRequest = None
+        try:
+            birthDateRequest = datetime.strptime(request.POST['birthDate'], "%d/%m/%Y")
+        except Exception:
+            print 'date is not correct: ', request.POST['birthDate']
+        person = Person(name=request.POST['name'], birthDate=birthDateRequest, email=request.POST['email'], sex=request.POST['sex'], position=Position(position=request.POST['position']))
+        person.save()
         response_data = {}
         response_data['result'] = 'ok'
         return HttpResponse(json.dumps(response_data), content_type="application/json")
+
+def validate(request):
+    template = loader.get_template('validate.html')
+    context = RequestContext(request)
+    return HttpResponse(template.render(context), content_type="text/html")

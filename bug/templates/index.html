@@ -29,19 +29,23 @@
 				<th>Name</th>
 				<th>Email</th>
 				<th>Sex</th>
+				<th>Birth date</th>
 				<th>Position</th>
 			</tr>
 		</thead>
+		{% autoescape off %}
 		<tbody>
 			{% for p in persons %}
 			<tr>
 				<td>{{ p.name }}</td>
 				<td>{{ p.email }}</td>
 				<td>{{ p.sex }}</td>
+				<td>{{ p.birthDate }}</td>
 				<td>{{ p.position.position }}</td>
 			</tr>
 			{% endfor %}
 		</tbody>
+		{% endautoescape %}
 	</table>
 	</div>
 	<div class="col-md-4">
