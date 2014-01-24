@@ -88,11 +88,12 @@ function sendData() {
 		data: data,
 		success: function(data) {
 			if (data.result == 'ok') {
-				alert('ok')
+				alert('registration successfusl')
+
 			}
 		},
 		error: function() {
-			alert('fail')
+			alert('server error!')
 		}
 	});
 }
