@@ -23,10 +23,25 @@
 		</div>
 		<form id="registration_form" role="form">{% csrf_token %}
 			<div id="messageBox"></div>
+
+            <div class="form-group">
+                <label>Account:</label>
+                <div>
+                    <input name="account" type="text" class="form-control" id="account" placeholder="Account" data-required="true" >
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>First name:</label>
+                <div>
+                    <input name="firstname" type="text" class="form-control" id="firstname" placeholder="First name" data-required="true" >
+                </div>
+            </div>
+
 			<div class="form-group">
-				<label>Name:</label>
+				<label>Last name:</label>
 				<div>
-					<input name="name" type="text" class="form-control" id="name" placeholder="Name" data-required="true" >
+					<input name="lastname" type="text" class="form-control" id="lastname" placeholder="Last name" data-required="true" >
 				</div>
 			</div>
 

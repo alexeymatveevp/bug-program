@@ -1,0 +1,20 @@
+{% load staticfiles %}
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="{% static "bower_components/jquery/jquery.min.js" %}"></script>
+    <script src="{% static "bower_components/bootstrap/dist/js/bootstrap.min.js" %}"></script>
+    <script type="text/javascript" src="{% static "js/script.js" %}"></script>
+    <link rel="stylesheet" type="text/css" href="{% static "bower_components/bootstrap/dist/css/bootstrap.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "js/style.css" %}">
+</head>
+<body>
+{% include "navbar.html" %}
+
+<div class="container" style="margin: 10px; width: 80%; margin: auto; margin-top: 80px;">
+    Access denied, please log in
+</div>
+
+</body>
+</html>
+

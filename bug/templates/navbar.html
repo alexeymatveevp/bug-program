@@ -1,22 +1,52 @@
+{% load staticfiles %}
 <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <a href="/" style="float: left"><img src="{% static "img/castle_logo.png" %}" alt="logo"/></a>
     <div class="navbar-header">
-        <a class="navbar-brand" href="/">Bug app</a>
+        <a class="navbar-brand" href="/">Sandbox castle</a>
     </div>
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
-            <li {% if list_page %}class="active"{% endif %}><a href="list">List of employees</a></li>
-            <li {% if register_page %}class="active"{% endif %}><a href="add">Register new</a></li>
-            {% if person != None %}
-                <li {% if register_page %}class="active"{% endif %}><a href="">My profile</a></li>
+            <li {% if list_page %}class="active"{% endif %}><a href="/list">List</a></li>
+            <li {% if register_page %}class="active"{% endif %}><a href="/add">Register</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right" style="margin-right: 10px;">
+            {% if user.is_authenticated %}
+                <li>
+                    <p style="padding: 15px; margin: 0px">Hello, {{ user.username }}</p>
+                </li>
+                <li {% if profile_page and user.username == current_profile %}class="active"{% endif %}>
+                    <a href="/user/{{ user.username }}">My profile</a>
+                </li>
+                <li>
+                    <a href="/logout">Logout</a>
+                </li>
             {% else %}
                 <li>
-                    <form action="login" method="POST">
-                        <input type="text" name="username" placeholder="account or email.."/>
-                        <input type="text" name="passwd" placeholder="password.."/>
-                        <input type="submit"/>
+                    <form class="navbar-form navbar-left" action="/account/login" method="POST">{% csrf_token %}
+                        <div class="form-group">
+                            <input name="username" type="text" class="form-control" placeholder="account">
+                        </div>
+                        <div class="form-group">
+                            <input name="password" type="password" class="form-control" placeholder="password">
+                        </div>
+                        <input type="hidden" name="next" value="{% if next %}{{ next }}{% else %}/{% endif %}"/>
+                        {% if next == None %}
+                        <script type="text/javascript">
+                            $(function() {
+                                document.getElementsByName("next").value=document.URL
+                            })
+                        </script>
+                        {% endif %}
+                        <button type="submit" class="btn btn-default">Login</button>
                     </form>
                 </li>
             {% endif %}
         </ul>
     </div>
 </nav>
+{% if message %}
+<p class="alert alert-warning fade in" style="top: 70px; position: absolute; right: 20px">
+    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+    <strong>{{ message }}</strong>
+</p>
+{% endif %}

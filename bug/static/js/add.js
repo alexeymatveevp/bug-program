@@ -37,15 +37,65 @@ $(function() {
         },
         "Password re-type must match password."
     )
+    jQuery.validator.addMethod(
+        "email_check",
+        function(value, element) {
+            var valid = false
+            $.ajax({
+                type: "GET",
+                url: 'validate/email',
+                async: false,
+                data: 'email='+value,
+                success: function(data) {
+                    if (data.result == 'ok') {
+                        valid = true
+                    }
+                }
+            });
+            return valid
+        },
+        "Sorry, this email already exist, please choose another one"
+    )
+    jQuery.validator.addMethod(
+        "account_check",
+        function(value, element) {
+            var valid = false
+            $.ajax({
+                type: "GET",
+                url: 'validate/account',
+                async: false,
+                data: 'account='+value,
+                success: function(data) {
+                    if (data.result == 'ok') {
+                        valid = true
+                    }
+                }
+            });
+            return valid
+        },
+        "Sorry, this account is already in use, please choose another one"
+    )
 	$('#registration_form').validate({
 		rules: {
-			name: {
-				required: true
+			account: {
+				required: true,
+                maxlength: 30,
+                account_check: 'yes'
 			},
+            firstname: {
+                required: true,
+                maxlength: 20,
+                regex: '^[a-zA-Z]*$'
+            },
+            lastname: {
+                maxlength: 20,
+                regex: '^[a-zA-Z]*$'
+            },
 			email: {
 				required: true,
 				email: true,
-				regex: '^[a-zA-Z0-9.@]{1,40}$'
+				maxlength: 40,
+                email_check: 'yes'
 			},
 			birthDate: {
 				required: true,
@@ -85,17 +135,23 @@ $(function() {
 })
 
 function sendData() {
-	var name = $('#name').val()
+	var account = $('#account').val()
+	var firstname = $('#firstname').val()
+	var lastname = $('#lastname').val()
 	var email = $('#email').val()
 	var sex = $("input[name=sex]:checked").val()
 	var birthDate = $('#birthDate').val()
 	var position = $('#position').val()
 	var permission = $('#permission').is(":checked")
-	var data = 'name='+name+'&'+
+    var passwd = $('#passwd').val()
+	var data = 'account='+account+'&'+
+				'firstname='+firstname+'&'+
+				'lastname='+lastname+'&'+
 				'email='+email+'&'+
 				'sex='+sex+'&'+
 				'birthDate='+birthDate+'&'+
-				'position='+position
+				'position='+position+'&'+
+                'passwd='+passwd
 	$.ajax({
 		type: "POST",
 		url: 'add',
@@ -103,7 +159,6 @@ function sendData() {
 		success: function(data) {
 			if (data.result == 'ok') {
 				alert('registration successfusl')
-
 			}
 		},
 		error: function() {

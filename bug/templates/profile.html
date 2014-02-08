@@ -5,33 +5,72 @@
     <script src="{% static "bower_components/jquery/jquery.min.js" %}"></script>
     <script src="{% static "bower_components/bootstrap/dist/js/bootstrap.min.js" %}"></script>
     <script type="text/javascript" src="{% static "js/script.js" %}"></script>
+    <script type="text/javascript" src="{% static "js/edit.js" %}"></script>
     <link rel="stylesheet" type="text/css" href="{% static "bower_components/bootstrap/dist/css/bootstrap.css" %}">
     <link rel="stylesheet" type="text/css" href="{% static "js/style.css" %}">
 </head>
 <body>
-{% include "navbar.html" %}
+{% include "navbar.html" with profile_page="true" current_profile=current_profile %}
 
 <div class="container" style="margin: 10px; width: 80%; margin: auto; margin-top: 80px;">
-    <div class="container-fluid">
+    <div class="col-md-2">
         <div class="row">
-            <h1>Sandbox castle</h1>
+            <img src="" alt="account image" style="width: 200px; height: 200px"/>
+        </div>
+        <div class="row">
+            list of commands
         </div>
     </div>
-    <div class="row">
-        <div class="col-md-8">
-            <h2>Last news</h2>
-            <ul>
-                <li>Natalia changed name</li>
-                <li>Alexey added Max to his friends list</li>
-            </ul>
-        </div>
-        <div class="col-md-4">
-            <h2>Bdays this month</h2>
-            <ul>
-                <li>Alexey</li>
-                <li>Max</li>
-            </ul>
-        </div>
+    <div class="col-md-10">
+        <dl class="dl-horizontal">
+            <dt>Name</dt>
+            <dd>
+                <span id="_firstname">{{ person.first_name }}</span> <span id="_secondname">{{ person.last_name }}</span>
+                {% if user.username == current_profile %}
+                    <span id="name_edit" class="glyphicon glyphicon-pencil"></span>
+                {% endif %}
+                <input type="text" id="firstname" style="display: none"/>
+                <input type="text" id="secondname" style="display: none"/>
+                <button id="name_ok" type="button" class="btn btn-success" style="display: none">ok</button>
+                <button id="name_no" type="button" class="btn btn-danger" style="display: none">no</button>
+            </dd>
+            <dt>Account</dt>
+            <dd>
+                <span id="_account">{{ person.account }}</span>
+                {% if user.username == current_profile %}
+                    <span id="account_edit" class="glyphicon glyphicon-pencil"></span>
+                {% endif %}
+                <input type="text" id="account" style="display: none"/>
+            </dd>
+            <dt>Email</dt>
+            <dd>
+                {{ person.email }}
+                {% if user.username == current_profile %}
+                    <span id="email_edit" class="glyphicon glyphicon-pencil"></span>
+                {% endif %}
+            </dd>
+            <dt>Position</dt>
+            <dd>
+                {{ person.birthDate }}
+                {% if user.username == current_profile %}
+                    <span id="bday_edit" class="glyphicon glyphicon-pencil"></span>
+                {% endif %}
+            </dd>
+            <dt>Position</dt>
+            <dd>
+                {{ person.position }}
+                {% if user.username == current_profile %}
+                    <span id="position_edit" class="glyphicon glyphicon-pencil"></span>
+                {% endif %}
+            </dd>
+            <dt style="margin-top: 20px">About</dt>
+            <dd style="margin-top: 20px">
+                {{ person.about }}
+                {% if user.username == current_profile %}
+                    <span id="about_edit" class="glyphicon glyphicon-pencil"></span>
+                {% endif %}
+            </dd>
+        </dl>
     </div>
 
 </div>

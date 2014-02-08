@@ -16,9 +16,9 @@
 		<table class="table table-striped">
 		<thead>
 			<tr>
+				<th>Account</th>
 				<th>Name</th>
 				<th>Email</th>
-				<th>Sex</th>
 				<th>Birth date</th>
 				<th>Position</th>
 			</tr>
@@ -27,9 +27,9 @@
 		<tbody>
 			{% for p in persons %}
 			<tr>
-				<td>{{ p.name }}</td>
-				<td>{{ p.email }}</td>
-				<td>{{ p.sex }}</td>
+				<td><a href="/user/{{ p.account }}">{{ p.account }}</a></td>
+                <td>{{ p.first_name }} {{ p.last_name }}</td>
+                <td>{{ p.email }}</td>
 				<td>{{ p.birthDate }}</td>
 				<td>{{ p.position.position }}</td>
 			</tr>
