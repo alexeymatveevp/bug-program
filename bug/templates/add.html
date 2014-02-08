@@ -15,17 +15,7 @@
 	<link rel="stylesheet" type="text/css" href="{% static "js/style.css" %}">	
 </head>
 <body>
-	<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
-		<div class="navbar-header">
-			<a class="navbar-brand" href="/">Bug app</a>
-		</div>
-		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-			<ul class="nav navbar-nav">
-				<li><a href="/">List of employees</a></li>
-				<li class="active"><a href="add">Register new</a></li>
-			</ul>
-		</div>
-	</nav>
+{% include "navbar.html" with register_page="true" %}
 
 	<div class="container" style="margin: 10px; width: 400px; margin: auto; margin-top: 80px;">
 		<div class="row">	
@@ -38,18 +28,29 @@
 				<div>
 					<input name="name" type="text" class="form-control" id="name" placeholder="Name" data-required="true" >
 				</div>
-				<div id="name-description"></div>
 			</div>
 
 			<div class="form-group">
 				<label for="emailaddress">Email address:</label>
 				<div>
-					<input name="email" class="form-control" id="email" placeholder="Email"
-						data-describedby="email-description" data-description="email">
+					<input name="email" class="form-control" id="email" placeholder="Email">
 					<blockquote><small>Example: alex@t-systems.ru</small></blockquote>
 				</div>
-				<div id="email-description"></div>
 			</div>
+
+            <div class="form-group">
+                <label for="passwd">Password:</label>
+                <div>
+                    <input name="password" type="password" class="form-control" id="passwd" placeholder="Password">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="passwd_re">Re-type password:</label>
+                <div>
+                    <input name="password_re" type="password" class="form-control" id="passwd_re" placeholder="Password again">
+                </div>
+            </div>
 
 			<div class="form-group">
 				<label for="sex">

@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.shortcuts import render
 from datetime import datetime
 from django.http import HttpResponse
@@ -6,26 +7,25 @@ from bug.models import *
 from django.core import serializers
 import json
 
-# Create your views here.
 
-def index(request):
-        persons = [row for row in Person.objects.all()]
-        template = loader.get_template('index.html')
-        context = RequestContext(request, {
-            'persons': persons
-        })
-        return HttpResponse(template.render(context), content_type="text/html")
-    
+def list(request):
+    persons = [row for row in Person.objects.all()]
+    template = loader.get_template('list.html')
+    context = RequestContext(request, {
+        'persons': persons
+    })
+    return HttpResponse(template.render(context), content_type="text/html")
+
 
 def add(request):
-    if (request.method == 'GET'):
+    if request.method == 'GET':
         positions = [row.position for row in Position.objects.all()]
         template = loader.get_template('add.html')
         context = RequestContext(request, {
             'positions': positions
         })
         return HttpResponse(template.render(context))
-    elif (request.method == 'POST'):
+    elif request.method == 'POST':
         print request.POST['name'], request.POST['email'], request.POST['sex'], request.POST['position']
         birthDateRequest = None
         try:
@@ -34,11 +34,17 @@ def add(request):
             print 'date is not correct: ', request.POST['birthDate']
         person = Person(name=request.POST['name'], birthDate=birthDateRequest, email=request.POST['email'], sex=request.POST['sex'], position=Position(position=request.POST['position']))
         person.save()
+
+        username = request.POST['email']
+        newuser = User.objects.create_user(username, username, '123')
+        newuser.save()
+
         response_data = {}
         response_data['result'] = 'ok'
         return HttpResponse(json.dumps(response_data), content_type="application/json")
 
-def validate(request):
-    template = loader.get_template('validate.html')
+
+def index(request):
+    template = loader.get_template('index.html')
     context = RequestContext(request)
     return HttpResponse(template.render(context), content_type="text/html")

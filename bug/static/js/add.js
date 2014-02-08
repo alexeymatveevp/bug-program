@@ -1,7 +1,7 @@
 $(function() {
 	// submit with progress-bar emulation
 	$('#register_btn').click(function(event) {
-		if ($('form').valid()) {
+		if ($('#registration_form').valid()) {
 			$('#progress_bar').show()
 			setTimeout(function() {
 				console.log('hi')
@@ -22,7 +22,7 @@ $(function() {
 		debug: true,
 		success: "valid"
 	})
-	$.validator.addMethod(
+	jQuery.validator.addMethod(
         "regex",
         function(value, element, regexp) {
             var re = new RegExp(regexp);
@@ -30,7 +30,14 @@ $(function() {
         },
         "Please check your input."
 	)
-	$('form').validate({
+    jQuery.validator.addMethod(
+        "passwd_check",
+        function(value, element) {
+            return $('#passwd').val() == $('#passwd_re').val();
+        },
+        "Password re-type must match password."
+    )
+	$('#registration_form').validate({
 		rules: {
 			name: {
 				required: true
@@ -38,7 +45,7 @@ $(function() {
 			email: {
 				required: true,
 				email: true,
-				regex: '[a-zA-Z.@]{1,40}'
+				regex: '^[a-zA-Z0-9.@]{1,40}$'
 			},
 			birthDate: {
 				required: true,
@@ -49,7 +56,14 @@ $(function() {
 			},
 			permission: {
 				required: true
-			}
+			},
+            password: {
+                required: true,
+                regex: '^.{1,40}$'
+            },
+            password_re: {
+                passwd_check: true
+            }
 		},
 		errorElement: 'span',
 	    errorClass: 'help-block',

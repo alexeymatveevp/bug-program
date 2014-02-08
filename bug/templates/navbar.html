@@ -1,0 +1,22 @@
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="navbar-header">
+        <a class="navbar-brand" href="/">Bug app</a>
+    </div>
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+            <li {% if list_page %}class="active"{% endif %}><a href="list">List of employees</a></li>
+            <li {% if register_page %}class="active"{% endif %}><a href="add">Register new</a></li>
+            {% if person != None %}
+                <li {% if register_page %}class="active"{% endif %}><a href="">My profile</a></li>
+            {% else %}
+                <li>
+                    <form action="login" method="POST">
+                        <input type="text" name="username" placeholder="account or email.."/>
+                        <input type="text" name="passwd" placeholder="password.."/>
+                        <input type="submit"/>
+                    </form>
+                </li>
+            {% endif %}
+        </ul>
+    </div>
+</nav>

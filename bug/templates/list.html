@@ -1,0 +1,51 @@
+{% load staticfiles %}
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<script src="{% static "bower_components/jquery/jquery.min.js" %}"></script>
+	<script src="{% static "bower_components/bootstrap/dist/js/bootstrap.min.js" %}"></script>
+	<script type="text/javascript" src="{% static "js/script.js" %}"></script>
+	<link rel="stylesheet" type="text/css" href="{% static "bower_components/bootstrap/dist/css/bootstrap.css" %}">
+	<link rel="stylesheet" type="text/css" href="{% static "js/style.css" %}">	
+</head>
+<body>
+{% include "navbar.html" with list_page="true" %}
+
+<div class="container" style="margin: 10px; width: 80%; margin: auto; margin-top: 80px;">
+	<div class="col-md-8">
+		<table class="table table-striped">
+		<thead>
+			<tr>
+				<th>Name</th>
+				<th>Email</th>
+				<th>Sex</th>
+				<th>Birth date</th>
+				<th>Position</th>
+			</tr>
+		</thead>
+		{% autoescape off %}
+		<tbody>
+			{% for p in persons %}
+			<tr>
+				<td>{{ p.name }}</td>
+				<td>{{ p.email }}</td>
+				<td>{{ p.sex }}</td>
+				<td>{{ p.birthDate }}</td>
+				<td>{{ p.position.position }}</td>
+			</tr>
+			{% endfor %}
+		</tbody>
+		{% endautoescape %}
+	</table>
+	</div>
+	<!--<div class="col-md-4">
+		<h2>Legend</h2>
+		<div class="alert alert-info">Male</div>
+		<div class="alert alert-warning">Feemale</div>
+	</div>-->
+	
+</div>	
+
+</body>
+</html>
+
