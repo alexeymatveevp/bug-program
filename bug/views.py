@@ -114,3 +114,9 @@ def do_login(request):
 def logout_view(request):
     logout(request)
     return redirect('/')
+
+
+def my_404_view(request):
+    template = loader.get_template('404.html')
+    context = RequestContext(request)
+    return HttpResponse(template.render(context), content_type="text/html")

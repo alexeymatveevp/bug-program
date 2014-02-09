@@ -12,5 +12,4 @@ urlpatterns = patterns('',
 	url(r'^validate/email$', validate.validate_email_exist, name='validate email exist'),
 	url(r'^validate/account$', validate.validate_account_exist, name='validate account exist'),
     url(r'^account/login$', views.do_login, name='login'),
-
 )
