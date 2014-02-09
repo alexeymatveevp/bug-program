@@ -12,123 +12,125 @@
 	<script type="text/javascript" src="{% static "js/cross-origin.js" %}"></script>
 	<link rel="stylesheet" type="text/css" href="{% static "bower_components/bootstrap-datepicker/css/datepicker.css" %}">
 	<link rel="stylesheet" type="text/css" href="{% static "bower_components/bootstrap/dist/css/bootstrap.css" %}">
-	<link rel="stylesheet" type="text/css" href="{% static "js/style.css" %}">	
+    <link rel="stylesheet" type="text/css" href="{% static "js/style.css" %}">
 </head>
 <body>
 {% include "navbar.html" with register_page="true" %}
 
-	<div class="container" style="margin: 10px; width: 400px; margin: auto; margin-top: 80px;">
-		<div class="row">	
-			<h2>New Registration</h2>	
-		</div>
-		<form id="registration_form" role="form">{% csrf_token %}
-			<div id="messageBox"></div>
+<div style="z-index: -20;position: fixed; width: 100%; height: 100%; background: url({% static "img/sand_texture.jpg" %}) repeat; opacity: 0.2;"></div>
+<div class="container outer-small">
+    <div class="container inner-small">
+    <div class="row">
+        <h2>New Registration</h2>
+    </div>
+    <form id="registration_form" role="form">{% csrf_token %}
+        <div id="messageBox"></div>
 
-            <div class="form-group">
-                <label>Account:</label>
+        <div class="form-group">
+            <label>Account:</label>
+            <div>
+                <input name="account" type="text" class="form-control" id="account" placeholder="Account" data-required="true" >
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>First name:</label>
+            <div>
+                <input name="firstname" type="text" class="form-control" id="firstname" placeholder="First name" data-required="true" >
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Last name:</label>
+            <div>
+                <input name="lastname" type="text" class="form-control" id="lastname" placeholder="Last name" data-required="true" >
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="emailaddress">Email address:</label>
+            <div>
+                <input name="email" class="form-control" id="email" placeholder="Email">
+                <blockquote><small>Example: alex@t-systems.ru</small></blockquote>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="passwd">Password:</label>
+            <div>
+                <input name="password" type="password" class="form-control" id="passwd" placeholder="Password">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="passwd_re">Re-type password:</label>
+            <div>
+                <input name="password_re" type="password" class="form-control" id="passwd_re" placeholder="Password again">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="sex">
+                Sex:
+            </label>
+            <div>
+                <label class="radio">
+                    <input name="sex" type="radio" name="sex" value="male" checked>
+                    Male
+                </label>
+                <label class="radio">
+                    <input name="sex" type="radio" name="sex" value="female">
+                    Female
+                </label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="sex">
+                Birth date:
+            </label>
+            <div class="well" >
+                <input id="birthDate" name="birthDate" class="span2" size="16" type="text" >
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="position">Position:</label>
+            <div>
+                <select id="position" name="position" class="form-control">
+                    <option value="">-- select position --</option>
+                    {% for pos in positions %}
+                        <option>{{ pos }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="checkbox">
                 <div>
-                    <input name="account" type="text" class="form-control" id="account" placeholder="Account" data-required="true" >
+                    <label>Privacy permission</label>
+                    <input name="permission" id="permission" type="checkbox">
                 </div>
             </div>
-
-            <div class="form-group">
-                <label>First name:</label>
-                <div>
-                    <input name="firstname" type="text" class="form-control" id="firstname" placeholder="First name" data-required="true" >
-                </div>
+        </div>
+        <div>
+            <div>
             </div>
-
-			<div class="form-group">
-				<label>Last name:</label>
-				<div>
-					<input name="lastname" type="text" class="form-control" id="lastname" placeholder="Last name" data-required="true" >
-				</div>
-			</div>
-
-			<div class="form-group">
-				<label for="emailaddress">Email address:</label>
-				<div>
-					<input name="email" class="form-control" id="email" placeholder="Email">
-					<blockquote><small>Example: alex@t-systems.ru</small></blockquote>
-				</div>
-			</div>
-
-            <div class="form-group">
-                <label for="passwd">Password:</label>
-                <div>
-                    <input name="password" type="password" class="form-control" id="passwd" placeholder="Password">
-                </div>
+            <div>
+                <button id="register_btn" type="button" class="btn btn-primary">Register</button>
             </div>
+        </div>
+    </form>
 
-            <div class="form-group">
-                <label for="passwd_re">Re-type password:</label>
-                <div>
-                    <input name="password_re" type="password" class="form-control" id="passwd_re" placeholder="Password again">
-                </div>
-            </div>
-
-			<div class="form-group">
-				<label for="sex">
-					Sex:
-				</label>
-				<div>
-					<label class="radio">
-						<input name="sex" type="radio" name="sex" value="male" checked>
-						Male
-					</label>
-					<label class="radio">
-						<input name="sex" type="radio" name="sex" value="female">
-						Female
-					</label>
-				</div>
-			</div>
-
-			<div class="form-group">
-				<label for="sex">
-					Birth date:
-				</label>
-				<div class="well" >
-					<input id="birthDate" name="birthDate" class="span2" size="16" type="text" >
-				</div>
-			</div>
-
-			<div class="form-group">
-				<label for="position">Position:</label>
-				<div>
-					<select id="position" name="position" class="form-control">
-						<option value="">-- select position --</option>
-						{% for pos in positions %}
-						<option>{{ pos }}</option>
-						{% endfor %}
-					</select>
-				</div>
-			</div>
-
-			<div class="form-group">
-				<div class="checkbox">
-					<div>
-						<label>Privacy permission</label>
-						<input name="permission" id="permission" type="checkbox">
-					</div>
-				</div>
-			</div>
-			<div>
-				<div>
-				</div>
-				<div>
-					<button id="register_btn" type="button" class="btn btn-primary">Register</button>
-				</div>
-			</div>
-		</form>
-
-		<div id="progress_bar" class="progress progress-striped active" style="display: none; margin-top: 30px;">
-			<div class="progress-bar"  role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
-				<span class="sr-only">100% Complete</span>
-			</div>
-		</div>
-
-	</div>
-
+    <div id="progress_bar" class="progress progress-striped active" style="display: none; margin-top: 30px;">
+        <div class="progress-bar"  role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+            <span class="sr-only">100% Complete</span>
+        </div>
+    </div>
+    </div>
+</div>
+{% include "footer.html" %}
 </body>
 </html>
 

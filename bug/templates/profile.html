@@ -12,69 +12,72 @@
 <body>
 {% include "navbar.html" with profile_page="true" current_profile=current_profile %}
 
-<div class="container" style="margin: 10px; width: 80%; margin: auto; margin-top: 80px;">
-    <div class="col-md-2">
-        <div class="row">
-            <img src="" alt="account image" style="width: 200px; height: 200px"/>
+<div style="z-index: -20;position: fixed; width: 100%; height: 100%; background: url({% static "img/sand_texture.jpg" %}) repeat; opacity: 0.2;"></div>
+<div class="container outer-big">
+    <div class="container inner-big">
+        <div class="col-md-2">
+            <div class="row">
+                <img src="" alt="account image" style="width: 200px; height: 200px"/>
+            </div>
+            <div class="row">
+                list of commands
+            </div>
         </div>
-        <div class="row">
-            list of commands
+        <div class="col-md-10">
+            <dl class="dl-horizontal">
+                <dt>Name</dt>
+                <dd>
+                    <span id="_firstname">{{ person.first_name }}</span> <span id="_secondname">{{ person.last_name }}</span>
+                    {% if user.username == current_profile %}
+                        <span id="name_edit" class="glyphicon glyphicon-pencil"></span>
+                    {% endif %}
+                    <input type="text" id="firstname" style="display: none"/>
+                    <input type="text" id="secondname" style="display: none"/>
+                    <button id="name_ok" type="button" class="btn btn-success" style="display: none">ok</button>
+                    <button id="name_no" type="button" class="btn btn-danger" style="display: none">no</button>
+                </dd>
+                <dt>Account</dt>
+                <dd>
+                    <span id="_account">{{ person.account }}</span>
+                    {% if user.username == current_profile %}
+                        <span id="account_edit" class="glyphicon glyphicon-pencil"></span>
+                    {% endif %}
+                    <input type="text" id="account" style="display: none"/>
+                </dd>
+                <dt>Email</dt>
+                <dd>
+                    {{ person.email }}
+                    {% if user.username == current_profile %}
+                        <span id="email_edit" class="glyphicon glyphicon-pencil"></span>
+                    {% endif %}
+                </dd>
+                <dt>Position</dt>
+                <dd>
+                    {{ person.birthDate }}
+                    {% if user.username == current_profile %}
+                        <span id="bday_edit" class="glyphicon glyphicon-pencil"></span>
+                    {% endif %}
+                </dd>
+                <dt>Position</dt>
+                <dd>
+                    {{ person.position }}
+                    {% if user.username == current_profile %}
+                        <span id="position_edit" class="glyphicon glyphicon-pencil"></span>
+                    {% endif %}
+                </dd>
+                <dt style="margin-top: 20px">About</dt>
+                <dd style="margin-top: 20px">
+                    {{ person.about }}
+                    {% if user.username == current_profile %}
+                        <span id="about_edit" class="glyphicon glyphicon-pencil"></span>
+                    {% endif %}
+                </dd>
+            </dl>
         </div>
-    </div>
-    <div class="col-md-10">
-        <dl class="dl-horizontal">
-            <dt>Name</dt>
-            <dd>
-                <span id="_firstname">{{ person.first_name }}</span> <span id="_secondname">{{ person.last_name }}</span>
-                {% if user.username == current_profile %}
-                    <span id="name_edit" class="glyphicon glyphicon-pencil"></span>
-                {% endif %}
-                <input type="text" id="firstname" style="display: none"/>
-                <input type="text" id="secondname" style="display: none"/>
-                <button id="name_ok" type="button" class="btn btn-success" style="display: none">ok</button>
-                <button id="name_no" type="button" class="btn btn-danger" style="display: none">no</button>
-            </dd>
-            <dt>Account</dt>
-            <dd>
-                <span id="_account">{{ person.account }}</span>
-                {% if user.username == current_profile %}
-                    <span id="account_edit" class="glyphicon glyphicon-pencil"></span>
-                {% endif %}
-                <input type="text" id="account" style="display: none"/>
-            </dd>
-            <dt>Email</dt>
-            <dd>
-                {{ person.email }}
-                {% if user.username == current_profile %}
-                    <span id="email_edit" class="glyphicon glyphicon-pencil"></span>
-                {% endif %}
-            </dd>
-            <dt>Position</dt>
-            <dd>
-                {{ person.birthDate }}
-                {% if user.username == current_profile %}
-                    <span id="bday_edit" class="glyphicon glyphicon-pencil"></span>
-                {% endif %}
-            </dd>
-            <dt>Position</dt>
-            <dd>
-                {{ person.position }}
-                {% if user.username == current_profile %}
-                    <span id="position_edit" class="glyphicon glyphicon-pencil"></span>
-                {% endif %}
-            </dd>
-            <dt style="margin-top: 20px">About</dt>
-            <dd style="margin-top: 20px">
-                {{ person.about }}
-                {% if user.username == current_profile %}
-                    <span id="about_edit" class="glyphicon glyphicon-pencil"></span>
-                {% endif %}
-            </dd>
-        </dl>
     </div>
 
 </div>
-
+{% include "footer.html" %}
 </body>
 </html>
 

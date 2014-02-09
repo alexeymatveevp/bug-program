@@ -8,13 +8,36 @@
     <link rel="stylesheet" type="text/css" href="{% static "bower_components/bootstrap/dist/css/bootstrap.css" %}">
     <link rel="stylesheet" type="text/css" href="{% static "js/style.css" %}">
 </head>
-<body>
+<body >
 {% include "navbar.html" %}
-
-<div class="container" style="margin: 10px; width: 80%; margin: auto; margin-top: 80px;">
-    Access denied, please log in
+<div style="z-index: -20;position: fixed; width: 100%; height: 100%; background: url({% static "img/sand_texture.jpg" %}) repeat; opacity: 0.2;"></div>
+<div class="container outer-small">
+    <div class="container inner-small">
+        <div class="row">
+            <p class="lead">Access denied, please log in</p>
+        </div>
+        <form action="/account/login" method="POST">{% csrf_token %}
+            <div class="form-group">
+                <label for="username">Account:</label>
+                <input name="username" type="text" class="form-control" placeholder="account">
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input name="password" type="password" class="form-control" placeholder="password">
+            </div>
+            <input type="hidden" name="next" value="{% if next %}{{ next }}{% else %}/{% endif %}"/>
+            {% if next == None %}
+                <script type="text/javascript">
+                    $(function() {
+                        document.getElementsByName("next").value=document.URL
+                    })
+                </script>
+            {% endif %}
+            <button type="submit" class="btn btn-default">Login</button>
+        </form>
+    </div>
 </div>
-
+{% include "footer.html" %}
 </body>
 </html>
 
