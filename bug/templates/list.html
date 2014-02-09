@@ -21,7 +21,6 @@
                 <th>Account</th>
                 <th>Name</th>
                 <th>Email</th>
-                <th>Birth date</th>
                 <th>Position</th>
             </tr>
             </thead>
@@ -32,7 +31,6 @@
                         <td><a href="/user/{{ p.account }}">{{ p.account }}</a></td>
                         <td>{{ p.first_name }} {{ p.last_name }}</td>
                         <td>{{ p.email }}</td>
-                        <td>{{ p.birthDate }}</td>
                         <td>{{ p.position.position }}</td>
                     </tr>
                 {% endfor %}
