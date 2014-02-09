@@ -18,7 +18,7 @@ input[type="text"]
 dt,dd {
     font-size: medium;
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-    padding: 5px;
+    padding: 12px;
 }
 
 .container.outer-small {
@@ -48,4 +48,19 @@ dt,dd {
 .container.inner-big{
     width: 80%;
     margin: auto;
+}
+.bg-fill {
+    z-index: -5;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: #F8F8F8;
+}
+.table > tbody > tr.male,
+.alert.male{
+    background-color: #FAFCFF;
+}
+.table > tbody > tr.female,
+.alert.female{
+    background-color: #FBF7FF;
 }

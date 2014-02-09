@@ -8,6 +8,7 @@
 	<script src="{% static "bower_components/bootstrap/dist/js/bootstrap.min.js" %}"></script>
 	<script src="{% static "bower_components/bootstrap-datepicker/js/bootstrap-datepicker.js" %}"></script>
 	<script src="{% static "bower_components/jquery-validation/jquery.validate.js" %}"></script>
+	<script type="text/javascript" src="{% static "js/script.js" %}"></script>
 	<script type="text/javascript" src="{% static "js/add.js" %}"></script>
 	<script type="text/javascript" src="{% static "js/cross-origin.js" %}"></script>
 	<link rel="stylesheet" type="text/css" href="{% static "bower_components/bootstrap-datepicker/css/datepicker.css" %}">
@@ -17,7 +18,7 @@
 <body>
 {% include "navbar.html" with register_page="true" %}
 
-<div style="z-index: -20;position: fixed; width: 100%; height: 100%; background: url({% static "img/sand_texture.jpg" %}) repeat; opacity: 0.2;"></div>
+<div class="bg-fill"></div>
 <div class="container outer-small">
     <div class="container inner-small">
     <div class="row">

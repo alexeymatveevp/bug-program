@@ -11,11 +11,11 @@
 <body>
 {% include "navbar.html" with list_page="true" %}
 
-<div style="z-index: -20;position: fixed; width: 100%; height: 100%; background: url({% static "img/sand_texture.jpg" %}) repeat; opacity: 0.2;"></div>
+<div class="bg-fill"></div>
 <div class="container outer-big">
 <div class="container inner-big">
-    <div class="col-md-8">
-        <table class="table table-striped">
+    <div class="col-md-10">
+        <table class="table">
             <thead>
             <tr>
                 <th>Account</th>
@@ -28,7 +28,7 @@
             {% autoescape off %}
                 <tbody>
                 {% for p in persons %}
-                    <tr>
+                    <tr {% if p.sex == 'male' %}class="male"{% elif p.sex == 'female' %}class="female"{% endif %}>
                         <td><a href="/user/{{ p.account }}">{{ p.account }}</a></td>
                         <td>{{ p.first_name }} {{ p.last_name }}</td>
                         <td>{{ p.email }}</td>
@@ -40,13 +40,12 @@
             {% endautoescape %}
         </table>
     </div>
+    <div class="col-md-2">
+        <h3>Legend</h3>
+        <div class="alert male">Male</div>
+        <div class="alert female">Feemale</div>
+    </div>
 </div>
-	<!--<div class="col-md-4">
-		<h2>Legend</h2>
-		<div class="alert alert-info">Male</div>
-		<div class="alert alert-warning">Feemale</div>
-	</div>-->
-	
 </div>
 {% include "footer.html" %}
 </body>

@@ -158,11 +158,11 @@ function sendData() {
 		data: data,
 		success: function(data) {
 			if (data.result == 'ok') {
-				alert('registration successfusl')
+				showMessage('Registration successfull', 'success')
 			}
 		},
 		error: function() {
-			alert('server error!')
+			showMessage('Server error! Please contact development.', 'danger')
 		}
 	});
 }

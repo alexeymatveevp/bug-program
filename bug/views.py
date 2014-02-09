@@ -55,13 +55,34 @@ def index(request):
 
 @login_required
 def profile(request, account):
-    person = Person.objects.get(account=account)
-    template = loader.get_template('profile.html')
-    context = RequestContext(request, {
-        'person': person,
-        'current_profile': account
-    })
-    return HttpResponse(template.render(context), content_type="text/html")
+    if request.method == 'GET':
+        positions = [row.position for row in Position.objects.all()]
+        person = Person.objects.get(account=account)
+        template = loader.get_template('profile.html')
+        context = RequestContext(request, {
+            'person': person,
+            'current_profile': account,
+            'positions': positions
+        })
+        return HttpResponse(template.render(context), content_type="text/html")
+    elif request.method == 'POST':
+        person = Person.objects.get(account=account)
+        if request.POST.get('account') is not None:
+            person.account=request.POST.get('account')
+        if request.POST.get('firstname') is not None:
+            person.first_name=request.POST.get('firstname')
+        if request.POST.get('lastname') is not None:
+            person.last_name=request.POST.get('lastname')
+        if request.POST.get('email') is not None:
+            person.email=request.POST.get('email')
+        if request.POST.get('bday') is not None:
+            person.birthDate=datetime.strptime(request.POST.get('bday'), "%m/%d/%Y")
+        if request.POST.get('position') is not None:
+            person.position=Position.objects.get(position=request.POST.get('position'))
+        if request.POST.get('about') is not None:
+            person.about=request.POST.get('about')
+        person.save()
+        return HttpResponse(json.dumps({'result': 'ok'}), content_type="application/json")
 
 
 def login_view(request):
