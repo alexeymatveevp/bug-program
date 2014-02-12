@@ -38,9 +38,7 @@ $(function() {
         toggleEdit('account', correctSimpleInput)
     })
     $('#account_ok').click(function() {
-        $('#'+prefix+'_ok').button('loading')
         updateServer('account')
-        $('#'+prefix+'_ok').button('reset');
     })
     $('#account_no').click(function() {
         toggleEditBack('account')
@@ -60,7 +58,7 @@ $(function() {
     $('#bday_ok').click(function() {
         updateServer('bday')
     })
-    $('#account_no').click(function() {
+    $('#bday_no').click(function() {
         toggleEditBack('bday')
     })
     $('#position_edit').click(function() {
@@ -87,6 +85,49 @@ $(function() {
         format: "mm/dd/yyyy",
         startDate: '01/01/1950',
         startView: 'year'
+    })
+
+    $('#user_data').validate({
+        rules: {
+            account: {
+                required: true,
+                maxlength: 30
+            },
+            firstname: {
+                required: true,
+                maxlength: 20
+            },
+            lastname: {
+                maxlength: 20
+            },
+            email: {
+                required: true,
+                email: true,
+                maxlength: 40
+            },
+            bday: {
+                required: true,
+                date: true
+            },
+            position: {
+                required: true
+            }
+        },
+        errorElement: 'span',
+        errorClass: 'help-block',
+        errorPlacement: function(error, element) {
+            if(element.parent('.input-group').length) {
+                error.insertAfter(element.parent());
+            } else {
+                error.insertAfter(element);
+            }
+        },
+        highlight: function(element) {
+            $(element).closest('dd').addClass('has-error');
+        },
+        unhighlight: function(element) {
+            $(element).closest('dd').removeClass('has-error');
+        }
     })
 })
 

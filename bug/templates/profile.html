@@ -6,6 +6,7 @@
     <script src="{% static "bower_components/jquery-cookie/jquery.cookie.js" %}"></script>
     <script src="{% static "bower_components/bootstrap/dist/js/bootstrap.min.js" %}"></script>
     <script src="{% static "bower_components/bootstrap-datepicker/js/bootstrap-datepicker.js" %}"></script>
+    <script src="{% static "bower_components/jquery-validation/jquery.validate.js" %}"></script>
     <script src="{% static "bower_components/moment.min.js" %}"></script>
     <script type="text/javascript" src="{% static "js/script.js" %}"></script>
     <script type="text/javascript" src="{% static "js/edit.js" %}"></script>
@@ -22,23 +23,21 @@
     <div class="container inner-big">
         <div class="col-md-2">
             <div class="row">
-                <img src="" alt="account image" style="width: 200px; height: 200px"/>
-            </div>
-            <div class="row">
-                list of commands
+                <img src="{% static "img/profile.png" %}" alt="account image" style="width: 200px; height: 200px; -webkit-filter: hue-rotate(5deg) saturate(0.4);"/>
             </div>
         </div>
         <div class="col-md-10">
+            <form>
             {% csrf_token %}
-            <dl class="dl-horizontal">
+            <dl id="user_data" class="dl-horizontal">
                 <dt>Name</dt>
                 <dd>
                     <span id="_firstname">{{ person.first_name }}</span> <span id="_lastname">{{ person.last_name }}</span>
                     {% if user.username == current_profile %}
                         <span id="name_edit" class="glyphicon glyphicon-pencil"></span>
                     {% endif %}
-                    <input type="text" id="firstname" class="form-control" style="display: none"/>
-                    <input type="text" id="lastname" class="form-control" style="display: none"/>
+                    <input type="text" id="firstname" name="firstname" class="form-control" style="display: none" data-required="true"/>
+                    <input type="text" id="lastname" name="lastname" class="form-control" style="display: none" data-required="true"/>
                     <button id="name_ok" data-loading-text="Updating..." type="button" class="btn btn-success" style="display: none">ok</button>
                     <button id="name_no" type="button" class="btn btn-danger" style="display: none">no</button>
                 </dd>
@@ -48,7 +47,7 @@
                     {% if user.username == current_profile %}
                         <span id="account_edit" class="glyphicon glyphicon-pencil"></span>
                     {% endif %}
-                    <input type="text" id="account" class="form-control" style="display: none"/>
+                    <input type="text" id="account" name="account" class="form-control" style="display: none"/>
                     <button id="account_ok" type="button" class="btn btn-success" style="display: none">ok</button>
                     <button id="account_no" type="button" class="btn btn-danger" style="display: none">no</button>
                 </dd>
@@ -58,7 +57,7 @@
                     {% if user.username == current_profile %}
                         <span id="email_edit" class="glyphicon glyphicon-pencil"></span>
                     {% endif %}
-                    <input type="text" id="email" class="form-control" style="display: none"/>
+                    <input type="text" id="email" name="email" class="form-control" style="display: none"/>
                     <button id="email_ok" type="button" class="btn btn-success" style="display: none">ok</button>
                     <button id="email_no" type="button" class="btn btn-danger" style="display: none">no</button>
                 </dd>
@@ -68,7 +67,7 @@
                     {% if user.username == current_profile %}
                         <span id="bday_edit" class="glyphicon glyphicon-pencil"></span>
                     {% endif %}
-                    <input type="text" id="bday" class="form-control" style="display: none"/>
+                    <input type="text" id="bday" name="bday" class="form-control" style="display: none"/>
                     <button id="bday_ok" type="button" class="btn btn-success" style="display: none">ok</button>
                     <button id="bday_no" type="button" class="btn btn-danger" style="display: none">no</button>
                 </dd>
@@ -78,7 +77,7 @@
                     {% if user.username == current_profile %}
                         <span id="position_edit" class="glyphicon glyphicon-pencil"></span>
                     {% endif %}
-                    <select id="position" class="form-control" style="display: none">
+                    <select id="position" name="position" class="form-control" style="display: none">
                         <option value="">-- select position --</option>
                         {% for pos in positions %}
                             <option>{{ pos }}</option>
@@ -98,6 +97,7 @@
                     <button id="about_no" type="button" class="btn btn-danger" style="display: none">no</button>
                 </dd>
             </dl>
+            </form>
         </div>
     </div>
 
