@@ -27,7 +27,7 @@
             </div>
         </div>
         <div class="col-md-10">
-            <form>
+            <form id="edit_form">
             {% csrf_token %}
             <dl id="user_data" class="dl-horizontal">
                 <dt>Name</dt>
@@ -92,7 +92,7 @@
                     {% if user.username == current_profile %}
                         <span id="about_edit" class="glyphicon glyphicon-pencil"></span>
                     {% endif %}
-                    <input type="text" id="about" class="form-control" style="display: none"/>
+                    <input type="text" id="about" name="about" class="form-control" style="display: none"/>
                     <button id="about_ok" type="button" class="btn btn-success" style="display: none">ok</button>
                     <button id="about_no" type="button" class="btn btn-danger" style="display: none">no</button>
                 </dd>

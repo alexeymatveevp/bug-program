@@ -14,17 +14,22 @@ $(function() {
         $('#name_no').show()
     })
     $('#name_ok').click(function() {
-        updateServer('firstname')
-        updateServer('lastname')
-        $('#name_edit').show()
-        $('#firstname').hide()
-        $('#_firstname').show()
-        $('#lastname').hide()
-        $('#_lastname').show()
-        $('#name_ok').hide()
-        $('#name_no').hide()
+        if ($('#firstname').valid() && $('#lastname').valid()) {
+            updateServer('firstname')
+            updateServer('lastname')
+            $('#name_edit').show()
+            $('#firstname').hide()
+            $('#_firstname').show()
+            $('#lastname').hide()
+            $('#_lastname').show()
+            $('#name_ok').hide()
+            $('#name_no').hide()
+        }
     })
     $('#name_no').click(function() {
+        $('#firstname').parent().find('.help-block').each(function() {
+            $(this).remove()
+        })
         $('#name_edit').show()
         $('#firstname').hide()
         $('#_firstname').show()
@@ -87,7 +92,7 @@ $(function() {
         startView: 'year'
     })
 
-    $('#user_data').validate({
+    $('#edit_form').validate({
         rules: {
             account: {
                 required: true,
@@ -142,6 +147,9 @@ function toggleEdit(prefix, input_correct, ok_action) {
 }
 
 function toggleEditBack(prefix) {
+    $('#'+prefix).parent().find('.help-block').each(function() {
+        $(this).remove()
+    })
     $('#_'+prefix).html($('#'+prefix).val())
     $('#'+prefix+'_edit').show()
     $('#'+prefix).hide()
@@ -172,20 +180,22 @@ function correctSelect(prefix) {
 }
 
 function updateServer(prefix) {
-    var data = ''+prefix+'='+$('#'+prefix).val()
-    $.ajax({
-        type: "POST",
-        url: '/user/'+$('#_account').html()+'/',
-        data: data,
-        async: false,
-        success: function(data) {
-            if (data.result == 'ok') {
-                showMessage('Person '+prefix+' successfully updated', 'success')
+    if ($('#edit_form *[name='+prefix+']').valid()) {
+        var data = ''+prefix+'='+$('#'+prefix).val()
+        $.ajax({
+            type: "POST",
+            url: '/user/'+$('#_account').html()+'/',
+            data: data,
+            async: false,
+            success: function(data) {
+                if (data.result == 'ok') {
+                    showMessage('Person '+prefix+' successfully updated', 'success')
+                }
+            },
+            error: function() {
+                showMessage('Server error! Please contact development.', 'danger')
             }
-        },
-        error: function() {
-            showMessage('Server error! Please contact development.', 'danger')
-        }
-    })
-    toggleEditBack(prefix)
+        })
+        toggleEditBack(prefix)
+    }
 }
