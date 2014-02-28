@@ -8,7 +8,7 @@ Program is written for education purpose to **help students understand quality a
 ### Online
 Online demo can be found here
 
-http://188.120.236.130:8000/
+http://davidluckystar:8001/
 
 ### Specification
 Actual specification can be found in file **spec_and_buglist.docx** in this repository
